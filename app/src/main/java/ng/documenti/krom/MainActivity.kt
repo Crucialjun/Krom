@@ -27,12 +27,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import ng.documenti.krom.features.animelist.views.AnimeListScreen
-import ng.documenti.krom.features.profile.views.ProfileScreen
-import ng.documenti.krom.features.uploads.views.UploadsScreen
+import dagger.hilt.android.AndroidEntryPoint
+import ng.documenti.krom.features.animelist.presentation.ui.AnimeListScreen
+import ng.documenti.krom.features.profile.presentation.ui.ProfileScreen
+import ng.documenti.krom.features.uploads.presentation.ui.UploadsScreen
 import ng.documenti.krom.ui.theme.KromTheme
 import ng.documenti.krom.utils.BottomNavScreens
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

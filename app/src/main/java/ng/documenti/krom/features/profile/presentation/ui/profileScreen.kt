@@ -1,4 +1,4 @@
-package ng.documenti.krom.features.profile.views
+package ng.documenti.krom.features.profile.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

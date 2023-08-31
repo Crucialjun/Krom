@@ -1,7 +1,10 @@
+package ng.documenti.krom.core.usecases
+
 import kotlinx.coroutines.flow.Flow
+import ng.documenti.krom.common.Resource
 
 interface UseCases<T, Params> {
-    suspend operator fun invoke(params: Params): T
+    operator fun invoke(params: Params): Flow<Resource<T>>
 }
 
 interface StreamUseCases<T, Params> {

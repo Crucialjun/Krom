@@ -1,6 +1,8 @@
 package ng.documenti.krom.features.animelist.domain.entities
 
-class animeModel(
+import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.Images
+
+class AnimeModel(
     val title: String,
     val images: Images,
     val duration : String

@@ -1,4 +1,4 @@
-package ng.documenti.krom.features.uploads.views
+package ng.documenti.krom.features.uploads.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
