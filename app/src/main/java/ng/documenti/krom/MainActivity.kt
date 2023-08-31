@@ -8,12 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,9 +22,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ng.documenti.krom.features.animelist.views.AnimeListScreen
+import ng.documenti.krom.features.profile.views.ProfileScreen
+import ng.documenti.krom.features.uploads.views.UploadsScreen
 import ng.documenti.krom.ui.theme.KromTheme
 import ng.documenti.krom.utils.BottomNavScreens
 
@@ -49,32 +51,56 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
 
 
-                ) {
+                    ) {
                     val navController = rememberNavController()
 
                     Scaffold(
                         bottomBar = {
 
-                            NavigationBar(
-                                containerColor = Color.White,
-                            ){
+                            BottomNavigation(
+                                backgroundColor = Color.White
+                            ) {
                                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                                 val currentDestination = navBackStackEntry?.destination
 
-                                bottomNavItems.forEach{screen ->
+                                bottomNavItems.forEach { screen ->
                                     BottomNavigationItem(
                                         selected = currentDestination?.hierarchy?.any {
                                             it.route == screen.route
                                         } == true,
                                         label = { Text(text = screen.title) },
-                                        onClick = { /*TODO*/ },
-                                        icon = { Icon(painter = painterResource(id = screen.icon), contentDescription = null, modifier = Modifier.size(24.dp)) },)
+                                        onClick = { navController.navigate(screen.route){
+                                            popUpTo(navController.graph.findStartDestination().id){
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        } },
+                                        icon = {
+                                            Icon(
+                                                painter = painterResource(id = screen.icon),
+                                                contentDescription = null,
+                                                modifier = Modifier.size(24.dp)
+                                            )
+                                        },
+                                    )
                                 }
                             }
 
                         }
                     ) {
-                        Greeting("Android",Modifier.padding(it))
+                        NavHost(navController = navController, startDestination = BottomNavScreens.Home.route, modifier = Modifier.padding(it)){
+                            composable(BottomNavScreens.Home.route) {
+                                AnimeListScreen()
+                            }
+                            composable(BottomNavScreens.Uploads.route) {
+                               UploadsScreen()
+                            }
+                            composable(BottomNavScreens.Profile.route) {
+                                ProfileScreen()
+                            }
+
+                        }
                     }
 
                 }
