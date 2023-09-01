@@ -1,8 +1,6 @@
 package ng.documenti.krom.features.animelist.data.dataSources
 
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.AnimeDto
 import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.TopAnimeDto
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,6 +20,9 @@ interface JikanApi {
     suspend fun getAnime(
         @Query("id") id: Int,
     ): AnimeDetailsDto
+
+    @GET("/v4/random/anime")
+    suspend fun getFeaturedAnime(): AnimeDetailsDto
 
 }
 

@@ -1,6 +1,5 @@
 package ng.documenti.krom.di
 
-import ng.documenti.krom.features.animelist.domain.usecases.FetchAnimeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +22,7 @@ class AppModule {
         return Retrofit.Builder()
             .baseUrl(Constants.JIKAN_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+
             .build()
             .create(JikanApi::class.java)
     }

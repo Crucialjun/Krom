@@ -5,7 +5,8 @@ import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.Images
 class AnimeModel(
     val title: String,
     val images: Images,
-    val duration : String
+    val duration : String,
+    val year : Int
 ) {
 
 }

@@ -2,11 +2,8 @@ package ng.documenti.krom.features.animelist.data.repositories
 
 import ng.documenti.krom.features.animelist.data.dataSources.AnimeDetailsDto
 import ng.documenti.krom.features.animelist.data.dataSources.JikanApi
-import ng.documenti.krom.features.animelist.data.dataSources.JikanApiRating
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.AnimeDto
 import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.TopAnimeDto
 import ng.documenti.krom.features.animelist.domain.params.FetchTopAnimeParams
-
 import javax.inject.Inject
 
 
@@ -29,5 +26,9 @@ class AnimeRepositoryImp @Inject constructor(
 
     override suspend fun getAnime(id: Int): AnimeDetailsDto {
         return  animeApi.getAnime(id)
+    }
+
+    override suspend fun getFeaturedAnime(): AnimeDetailsDto {
+        return animeApi.getFeaturedAnime()
     }
 }

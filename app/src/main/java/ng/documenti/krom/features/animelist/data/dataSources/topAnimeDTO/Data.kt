@@ -45,7 +45,8 @@ fun AnimeDto.toAnimeModel(): AnimeModel {
     return AnimeModel(
         title = title,
         images = images,
-        duration = duration
+        duration = duration,
+        year = year
 
     )
 }

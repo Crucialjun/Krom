@@ -84,8 +84,11 @@ dependencies {
 
     implementation("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.9.10-1.0.13")
 
-    ksp ("com.google.dagger:dagger-compiler:2.48") // Dagger compiler
- // Hilt compile
+    ksp ("com.google.dagger:dagger-compiler:2.48")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:compose:1.0.0-alpha.5")
+
 
 
     testImplementation("junit:junit:4.13.2")
