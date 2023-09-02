@@ -1,4 +1,4 @@
-package ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO
+package ng.documenti.krom.features.animelist.data.dataSources.online.topAnimeDTO
 
 data class ImagesX(
     val image_url: String,

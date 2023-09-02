@@ -10,5 +10,6 @@ class AppUtils {
         fun readBytes(context: Context, uri: Uri): ByteArray? =
             context.contentResolver.openInputStream(uri)?.use { it.buffered().readBytes() }
     }
+
 }
 

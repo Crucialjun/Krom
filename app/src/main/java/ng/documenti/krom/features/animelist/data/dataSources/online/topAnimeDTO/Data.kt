@@ -1,4 +1,4 @@
-package ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO
+package ng.documenti.krom.features.animelist.data.dataSources.online.topAnimeDTO
 
 import ng.documenti.krom.features.animelist.domain.entities.AnimeModel
 

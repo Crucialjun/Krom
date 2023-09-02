@@ -92,6 +92,12 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //room database
+    implementation("androidx.room:room-runtime:2.5.2")
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+
 
 
     testImplementation("junit:junit:4.13.2")

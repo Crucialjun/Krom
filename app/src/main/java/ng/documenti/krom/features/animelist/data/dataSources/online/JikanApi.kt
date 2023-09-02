@@ -1,6 +1,6 @@
-package ng.documenti.krom.features.animelist.data.dataSources
+package ng.documenti.krom.features.animelist.data.dataSources.online
 
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.TopAnimeDto
+import ng.documenti.krom.features.animelist.data.dataSources.online.topAnimeDTO.TopAnimeDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

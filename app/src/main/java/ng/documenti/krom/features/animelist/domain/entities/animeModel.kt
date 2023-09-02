@@ -1,8 +1,13 @@
 package ng.documenti.krom.features.animelist.domain.entities
 
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.Images
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import ng.documenti.krom.features.animelist.data.dataSources.online.topAnimeDTO.Images
 
-class AnimeModel(
+@Entity
+data class AnimeModel(
+    @PrimaryKey(autoGenerate = true)
+    val id : Int = 0,
     val title: String,
     val images: Images,
     val duration : String,

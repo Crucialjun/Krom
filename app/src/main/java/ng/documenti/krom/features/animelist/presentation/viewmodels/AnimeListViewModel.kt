@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ng.documenti.krom.common.Resource
 import ng.documenti.krom.core.usecases.NoParams
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.toAnimeModel
 import ng.documenti.krom.features.animelist.domain.params.FetchTopAnimeParams
 import ng.documenti.krom.features.animelist.domain.usecases.FetchAnimeUseCase
 import ng.documenti.krom.features.animelist.domain.usecases.FetchFeaturedAnimeUseCase
@@ -47,9 +46,7 @@ class AnimeListViewModel @Inject constructor(
         ).onEach { it ->
             when(it){
                is Resource.Success -> {
-                   _animeListState.value = AnimeListState(animeList = it.data?.data?.map  { animeDto ->
-                       animeDto.toAnimeModel()
-                   }?: emptyList())
+                   _animeListState.value = AnimeListState(animeList = it.data ?: emptyList())
                }
                is Resource.Error -> {
                    Log.e("TAG", "getTopAnime: error is ${animeListState.value}", )

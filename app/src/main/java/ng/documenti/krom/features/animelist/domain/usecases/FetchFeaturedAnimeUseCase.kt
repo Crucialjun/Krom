@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 import ng.documenti.krom.common.Resource
 import ng.documenti.krom.core.usecases.NoParams
 import ng.documenti.krom.core.usecases.UseCases
-import ng.documenti.krom.features.animelist.data.dataSources.topAnimeDTO.toAnimeModel
+import ng.documenti.krom.features.animelist.data.dataSources.online.topAnimeDTO.toAnimeModel
 import ng.documenti.krom.features.animelist.data.repositories.AnimeRepository
 import ng.documenti.krom.features.animelist.domain.entities.AnimeModel
 import javax.inject.Inject

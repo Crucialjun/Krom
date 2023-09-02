@@ -54,7 +54,11 @@ fun AnimeListScreen(){
     val viewModel : AnimeListViewModel = hiltViewModel()
     val animeListState = viewModel.animeListState.value
     val featuredAnimeState = viewModel.featuredAnimeState.value
-    Scaffold {
+    Scaffold(
+        floatingActionButton = {
+            Text("Refresh")
+        }
+    ) {
         Box(modifier = Modifier.padding(it)) {
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp)

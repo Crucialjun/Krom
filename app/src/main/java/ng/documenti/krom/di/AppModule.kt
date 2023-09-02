@@ -5,7 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ng.documenti.krom.common.Constants
-import ng.documenti.krom.features.animelist.data.dataSources.JikanApi
+import ng.documenti.krom.features.animelist.data.dataSources.local.AnimeDao
+import ng.documenti.krom.features.animelist.data.dataSources.online.JikanApi
 import ng.documenti.krom.features.animelist.data.repositories.AnimeRepository
 import ng.documenti.krom.features.animelist.data.repositories.AnimeRepositoryImp
 import ng.documenti.krom.features.uploads.data.datasources.TraceApi
@@ -32,10 +33,17 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideAnimeDao() : AnimeDao {
+        return AnimeDao
+    }
+
+    @Provides
+    @Singleton
     fun provideAnimeListRepository(
-        api: JikanApi
+        api: JikanApi,
+        dao : AnimeDao
     ): AnimeRepository {
-        return AnimeRepositoryImp(api)
+        return AnimeRepositoryImp(api,dao)
     }
 
 
