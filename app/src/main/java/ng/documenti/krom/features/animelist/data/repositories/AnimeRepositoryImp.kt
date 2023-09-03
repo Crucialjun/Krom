@@ -11,15 +11,15 @@ import javax.inject.Inject
 
 class AnimeRepositoryImp @Inject constructor(
     private val animeApi: JikanApi,
-    private val animeDao: AnimeDao
+    private val dao : AnimeDao
+
     ) : AnimeRepository {
     override suspend fun getTopAnime(
        params: FetchTopAnimeParams,
        isOnline: Boolean
     ): List<AnimeModel> {
-
         if(isOnline){
-                val response = animeApi.getTopAnime(
+            val response = animeApi.getTopAnime(
                     type = params.type,
                     filter = params.filter,
                     limit = params.limit,
@@ -28,7 +28,6 @@ class AnimeRepositoryImp @Inject constructor(
                     sfw = params.sfw
                 ).data
 
-
                   return   response.map {
                         it.toAnimeModel()
                     }
@@ -36,7 +35,7 @@ class AnimeRepositoryImp @Inject constructor(
 
 
         }else{
-            return animeDao.getAnimeList()
+            return dao.getAnimeList()
 
 
         }

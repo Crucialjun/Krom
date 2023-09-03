@@ -9,7 +9,8 @@ import ng.documenti.krom.features.animelist.domain.entities.AnimeModel
 @Database(entities = [AnimeModel::class], version = 1)
 @TypeConverters(ImageConverter::class)
 abstract class AnimeDatabase : RoomDatabase(){
-    abstract fun animeDao() : AnimeDao
+
+    abstract fun getAnimeDao() : AnimeDao
 
 
 }

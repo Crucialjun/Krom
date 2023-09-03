@@ -100,7 +100,7 @@ fun UploadsScreen() {
                                     colors = CardDefaults.cardColors(
                                     ),
                                     ){
-                                    Text(text = item?.anilist?.title.toString() ?: "No title",style = TextStyle(fontSize = 14.sp) , modifier = Modifier.padding(8.dp))
+                                    Text(text = item?.anilist?.title.toString(),style = TextStyle(fontSize = 14.sp) , modifier = Modifier.padding(8.dp))
                                 }
                             }
                         })

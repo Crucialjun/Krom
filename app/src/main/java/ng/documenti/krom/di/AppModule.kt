@@ -1,11 +1,14 @@
 package ng.documenti.krom.di
 
+import android.app.Application
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ng.documenti.krom.common.Constants
 import ng.documenti.krom.features.animelist.data.dataSources.local.AnimeDao
+import ng.documenti.krom.features.animelist.data.dataSources.local.AnimeDatabase
 import ng.documenti.krom.features.animelist.data.dataSources.online.JikanApi
 import ng.documenti.krom.features.animelist.data.repositories.AnimeRepository
 import ng.documenti.krom.features.animelist.data.repositories.AnimeRepositoryImp
@@ -20,6 +23,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
+
     @Provides
     @Singleton
     fun provideJikanApi(): JikanApi {
@@ -31,10 +35,12 @@ class AppModule {
             .create(JikanApi::class.java)
     }
 
+
+
     @Provides
     @Singleton
-    fun provideAnimeDao() : AnimeDao {
-        return AnimeDao
+    fun provideAnimeDao(animeDatabase: AnimeDatabase) : AnimeDao {
+        return animeDatabase.getAnimeDao()
     }
 
     @Provides
@@ -45,6 +51,16 @@ class AppModule {
     ): AnimeRepository {
         return AnimeRepositoryImp(api,dao)
     }
+
+
+    @Provides
+    @Singleton
+    fun provideAnimeDatabase(app : Application) : AnimeDatabase {
+        return Room.databaseBuilder(
+            app,AnimeDatabase::class.java,"AnimeModel"
+        ).build()
+    }
+
 
 
     @Provides

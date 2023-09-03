@@ -1,6 +1,7 @@
 package ng.documenti.krom.features.animelist.domain.usecases
 
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ng.documenti.krom.common.Resource
@@ -17,9 +18,11 @@ class FetchAnimeUseCase @Inject constructor(
         return  flow{
             emit(Resource.Loading())
             try{
-                val topAnime = animeRepository.getTopAnime(params,false)
+                val topAnime = animeRepository.getTopAnime(params,true)
+                Log.d("Fetch animes usecase", "invoke: received ${topAnime.size} animes ")
                 emit(Resource.Success(topAnime))
             }catch (e: Exception){
+                Log.e("Fetch animes usecase", "invoke: error is ${e.toString()}", )
                 emit(Resource.Error(e.message ?: "An error occurred"))
             }
 
