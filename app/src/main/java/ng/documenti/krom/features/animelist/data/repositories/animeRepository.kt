@@ -8,12 +8,13 @@ interface AnimeRepository {
 
     suspend fun getTopAnime(
         params: FetchTopAnimeParams,
-        isOnline : Boolean
     ) : List<AnimeModel>
 
     suspend fun getAnime(id: Int) : AnimeDetailsDto
 
     suspend fun getFeaturedAnime() : AnimeDetailsDto
+
+
 
 
 }

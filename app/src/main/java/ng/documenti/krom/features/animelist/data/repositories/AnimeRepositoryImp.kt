@@ -16,32 +16,29 @@ class AnimeRepositoryImp @Inject constructor(
     ) : AnimeRepository {
     override suspend fun getTopAnime(
        params: FetchTopAnimeParams,
-       isOnline: Boolean
     ): List<AnimeModel> {
-        if(isOnline){
-            val response = animeApi.getTopAnime(
-                    type = params.type,
-                    filter = params.filter,
-                    limit = params.limit,
-                    page = params.page,
-                    rating = params.rating,
-                    sfw = params.sfw
-                ).data
 
-                  val animelist =    response.map {
-                        it.toAnimeModel()
-                    }
+        val animes = dao.getAnimeList()
+        if(animes.isNotEmpty()){
+            return animes
+        }else{
+            val response = animeApi.getTopAnime(
+                type = params.type,
+                filter = params.filter,
+                limit = params.limit,
+                page = params.page,
+                rating = params.rating,
+                sfw = params.sfw
+            ).data
+
+            val animelist =    response.map {
+                it.toAnimeModel()
+            }
 
             dao.upsertAnimeList(animelist)
             return animelist
-
-
-
-        }else{
-            return dao.getAnimeList()
-
-
         }
+
 
 
     }

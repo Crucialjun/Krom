@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ng.documenti.krom.common.Resource
 import ng.documenti.krom.core.usecases.NoParams
+import ng.documenti.krom.features.animelist.data.dataSources.local.AnimeDao
 import ng.documenti.krom.features.animelist.domain.params.FetchTopAnimeParams
 import ng.documenti.krom.features.animelist.domain.usecases.FetchAnimeUseCase
 import ng.documenti.krom.features.animelist.domain.usecases.FetchFeaturedAnimeUseCase
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AnimeListViewModel @Inject constructor(
     private val fetchAnimeUseCase: FetchAnimeUseCase,
-    private val fetchFeaturedAnimeUseCase: FetchFeaturedAnimeUseCase
+    private val fetchFeaturedAnimeUseCase: FetchFeaturedAnimeUseCase,
+    private val dao : AnimeDao
 ) : ViewModel(){
 
     private val _animeListState = mutableStateOf(AnimeListState())
@@ -35,6 +37,12 @@ class AnimeListViewModel @Inject constructor(
     init {
         getTopAnime()
         getFeaturedAnime()
+    }
+
+    suspend fun refreshList(){
+        _animeListState.value = AnimeListState(isLoading = true)
+        dao.deleteAllAnimes()
+        getTopAnime()
     }
 
 

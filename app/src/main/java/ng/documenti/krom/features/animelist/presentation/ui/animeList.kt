@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -26,6 +27,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import kotlinx.coroutines.launch
 import ng.documenti.krom.R
 import ng.documenti.krom.features.animelist.presentation.viewmodels.AnimeListViewModel
 import ng.documenti.krom.ui.theme.featuredContainer
@@ -54,9 +57,16 @@ fun AnimeListScreen(){
     val viewModel : AnimeListViewModel = hiltViewModel()
     val animeListState = viewModel.animeListState.value
     val featuredAnimeState = viewModel.featuredAnimeState.value
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         floatingActionButton = {
-            Text("Refresh")
+            Button(onClick = {
+                coroutineScope.launch {
+                    viewModel.refreshList()
+                }
+            }) {
+                Text(text = "Refresh")
+            }
         }
     ) {
         Box(modifier = Modifier.padding(it)) {
@@ -163,64 +173,68 @@ fun AnimeListScreen(){
                     style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 )
                 Spacer(Modifier.height(4.dp))
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    content = {
+                if(animeListState.isLoading){
+                    Text(text = "Loading...")
+                }else {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        content = {
 
-                    items(animeListState.animeList.size) { index ->
-                       Card(modifier = Modifier
-                           .width(180.dp)
-                           .height(250.dp)) {
-                           BoxWithConstraints {
-                               GlideImage(
-                                   model = animeListState.animeList[index].images.webp.large_image_url,
-                                   contentDescription = "featured anime",
-                                   contentScale = ContentScale.FillBounds,
-                                   modifier = Modifier
+                            items(animeListState.animeList.size) { index ->
+                                Card(modifier = Modifier
+                                    .width(180.dp)
+                                    .height(250.dp)) {
+                                    BoxWithConstraints {
+                                        GlideImage(
+                                            model = animeListState.animeList[index].images.webp.large_image_url,
+                                            contentDescription = "featured anime",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
 
-                                       .clip(RoundedCornerShape(16.dp))
+                                                .clip(RoundedCornerShape(16.dp))
 
 
-                               )
-                               Card(
-                                   shape = RoundedCornerShape(8.dp),
-                                   elevation = CardDefaults.cardElevation(
-                                       defaultElevation = 8.dp
-                                   ),
-                                   colors = CardDefaults.cardColors(
-                                       containerColor = featuredContainer
-                                   ),
-                                   modifier = Modifier
-                                   .align(Alignment.BottomCenter)
-                                   .padding(16.dp)) {
-                                   Column(
-                                       modifier = Modifier.padding(8.dp)
-                                   ) {
-                                       Text(
-                                           text = animeListState.animeList[index].title,
-                                           style = TextStyle(
-                                               color = featuredTextColor,
-                                               fontSize = 14.sp,
-                                               fontWeight = FontWeight.Bold
-                                           ),
+                                        )
+                                        Card(
+                                            shape = RoundedCornerShape(8.dp),
+                                            elevation = CardDefaults.cardElevation(
+                                                defaultElevation = 8.dp
+                                            ),
+                                            colors = CardDefaults.cardColors(
+                                                containerColor = featuredContainer
+                                            ),
+                                            modifier = Modifier
+                                                .align(Alignment.BottomCenter)
+                                                .padding(16.dp)) {
+                                            Column(
+                                                modifier = Modifier.padding(8.dp)
+                                            ) {
+                                                Text(
+                                                    text = animeListState.animeList[index].title,
+                                                    style = TextStyle(
+                                                        color = featuredTextColor,
+                                                        fontSize = 14.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    ),
 
-                                           )
-                                       Text(
-                                           text = animeListState.animeList[index].year.toString(),
-                                           style = TextStyle(
-                                               color = featuredTextColor,
-                                               fontSize = 14.sp,
-                                               fontWeight = FontWeight.Bold
-                                           ),
+                                                    )
+                                                Text(
+                                                    text = animeListState.animeList[index].year.toString(),
+                                                    style = TextStyle(
+                                                        color = featuredTextColor,
+                                                        fontSize = 14.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    ),
 
-                                           )
-                                   }
-                               }
-                           }
-                       }
-                        }
+                                                    )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
-                })
+                        })
+                }
 
                 
 
