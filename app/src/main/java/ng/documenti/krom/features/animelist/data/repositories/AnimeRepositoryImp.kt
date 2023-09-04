@@ -28,9 +28,12 @@ class AnimeRepositoryImp @Inject constructor(
                     sfw = params.sfw
                 ).data
 
-                  return   response.map {
+                  val animelist =    response.map {
                         it.toAnimeModel()
                     }
+
+            dao.upsertAnimeList(animelist)
+            return animelist
 
 
 

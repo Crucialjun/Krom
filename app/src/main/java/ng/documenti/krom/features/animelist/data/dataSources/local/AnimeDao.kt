@@ -12,6 +12,9 @@ interface AnimeDao {
     @Upsert
     suspend fun upsertAnime(anime: AnimeModel)
 
+    @Upsert
+    suspend fun upsertAnimeList(animeList: List<AnimeModel>)
+
     @Delete
     suspend fun deleteAnime(anime: AnimeModel)
 

@@ -18,7 +18,7 @@ class FetchAnimeUseCase @Inject constructor(
         return  flow{
             emit(Resource.Loading())
             try{
-                val topAnime = animeRepository.getTopAnime(params,true)
+                val topAnime = animeRepository.getTopAnime(params,false)
                 Log.d("Fetch animes usecase", "invoke: received ${topAnime.size} animes ")
                 emit(Resource.Success(topAnime))
             }catch (e: Exception){
